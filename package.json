@@ -1,0 +1,73 @@
+{
+  "name": "midnight-web",
+  "description": "A base project for starting Node web projects from",
+  "version": "1.0.0",
+  "author": "Brooks Boyd <bro@oks.me>",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0",
+    "gulp-less": "^3.0.3",
+    "gulp-clean-css": "^2.0",
+    "mocha": "^2.4.5"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "array-bracket-spacing": [1, "never"],
+      "block-spacing": [1, "always"],
+      "brace-style": [2, "1tbs"],
+      "comma-spacing": [1, { "before": false, "after": true }],
+      "comma-style": [1, "last"],
+      "curly": [1, "multi-line"],
+      "dot-location": [1, "property"],
+      "eol-last": 1,
+      "indent": [2, 2, {"SwitchCase": 1}],
+      "jsx-quotes": [1, "prefer-double"],
+      "key-spacing": [1, {"beforeColon": false, "afterColon": true, "mode": "minimum"}],
+      "keyword-spacing": 1,
+      "linebreak-style": [2, "unix"],
+      "object-curly-spacing": [1, "always"],
+      "object-shorthand": [1, "properties"],
+      "prefer-arrow-callback": 1,
+      "prefer-const": 1,
+      "semi": 1,
+      "semi-spacing": [2, {"before": false, "after": true}],
+      "no-alert": 1,
+      "no-array-constructor": 1,
+      "no-caller": 1,
+      "no-console": 1,
+      "no-else-return": 1,
+      "no-eval": 1,
+      "no-extend-native": 1,
+      "no-implied-eval": 1,
+      "no-invalid-this": 1,
+      "no-lonely-if": 1,
+      "no-loop-func": 1,
+      "no-magic-numbers": [1, {"ignore": [0], "ignoreArrayIndexes": true}],
+      "no-param-reassign": 1,
+      "no-proto": 1,
+      "no-script-url": 1,
+      "no-throw-literal": 1,
+      "no-useless-call": 1,
+      "no-unneeded-ternary": 1,
+      "no-var": 1,
+      "no-with": 1
+    }
+  }
+}
