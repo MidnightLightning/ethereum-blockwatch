@@ -26,50 +26,26 @@ function rpcGet(options, web3) {
   return def.promise();
 }
 
-
-function startApp(web3) {
-
+function getLatestBlock(web3) {
   var latestBlock = {
     method: 'eth_blockNumber',
     params: []
   };
-  rpcGet(latestBlock, web3).then(function(rs) {
-    console.log(web3.toBigNumber(rs).toNumber(), rs);
-  }, function(err) {
-    console.error(err);
-  });
+  return rpcGet(latestBlock, web3);
+}
 
 
-  var newBlocks = {
-    method: 'eth_newBlockFilter',
-    params: []
-  };
-  function checkFilter(filterId) {
-    var filterResult = {
-      method: 'eth_getFilterChanges',
-      params: [
-        filterId
-      ]
-    };
-    rpcGet(filterResult, web3).then(function(rs) {
-      console.log(rs);
-      setTimeout(function() {
-        checkFilter(filterId)
-      }, 30*1000);
+function startApp(web3) {
+
+  function doBlockCheck() {
+    getLatestBlock(web3).then(function(rs) {
+      var blockNum = web3.toBigNumber(rs).toNumber();
+      console.log(blockNum);
+      setTimeout(doBlockCheck, 30*1000);
     }, function(err) {
-      console.error(err);
+      console.log(err);
     });
   }
+  doBlockCheck();
 
-  rpcGet(newBlocks, web3).then(function(rs) {
-    checkFilter(rs);
-  });
-
-
-  /*
-  var filter = web3.eth.filter('latest');
-  filter.watch(function (err, result) {
-    console.log(err, result);
-  });
-  */
 }
