@@ -12,6 +12,9 @@ window.addEventListener('load', function() {
   startApp(w);
 });
 
+/**
+ * Perform a JSON-RPC call, and return a promise.
+ */
 function rpcGet(options, web3) {
   if (typeof options.jsonrpc == 'undefined') options.jsonrpc = '2.0';
   if (typeof options.id == 'undefined') options.id = parseInt(Math.random()*1000);
@@ -26,6 +29,9 @@ function rpcGet(options, web3) {
   return def.promise();
 }
 
+/**
+ * Get the latest block height number.
+ */
 function getLatestBlock(web3) {
   var latestBlock = {
     method: 'eth_blockNumber',
@@ -37,9 +43,12 @@ function getLatestBlock(web3) {
 
 function startApp(web3) {
 
+  // Start timer for checking block heights
   function doBlockCheck() {
     getLatestBlock(web3).then(function(rs) {
       var blockNum = web3.toBigNumber(rs).toNumber();
+      $('#block-number').html(blockNum);
+      document.title = blockNum + ' - Ethereum Blockwatch';
       console.log(blockNum);
       setTimeout(doBlockCheck, 30*1000);
     }, function(err) {

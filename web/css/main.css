@@ -1,6 +1,1 @@
-@font-face{font-family:Raleway;font-style:normal;font-weight:400;src:local('Raleway'),local('Raleway-Regular'),url(https://fonts.gstatic.com/s/raleway/v11/bIcY3_3JNqUVRAQQRNVteQ.ttf) format('truetype')}
-@font-face{font-family:Raleway;font-style:normal;font-weight:500;src:local('Raleway Medium'),local('Raleway-Medium'),url(https://fonts.gstatic.com/s/raleway/v11/CcKI4k9un7TZVWzRVT-T8y3USBnSvpkopQaUR-2r7iU.ttf) format('truetype')}
-@font-face{font-family:Raleway;font-style:normal;font-weight:600;src:local('Raleway SemiBold'),local('Raleway-SemiBold'),url(https://fonts.gstatic.com/s/raleway/v11/xkvoNo9fC8O2RDydKj12by3USBnSvpkopQaUR-2r7iU.ttf) format('truetype')}
-html{box-sizing:border-box}
-*,:after,:before{box-sizing:inherit}
-h1,h2,h3,h4,h5,h6{font-family:Raleway,sans-serif;font-weight:400}
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono);html{box-sizing:border-box}*,:after,:before{box-sizing:inherit}#block-number{font-family:'Ubuntu Mono',monospace;font-size:4rem;font-weight:700;padding:2em .25em;text-align:center}
