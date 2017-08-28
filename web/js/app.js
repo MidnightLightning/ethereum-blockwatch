@@ -79,6 +79,9 @@ function getLastBlocks(web3, blockHeight, num) {
 }
 
 function parseAverageBlocktime() {
+  if (blockTimes.length == 0) {
+    return 10;
+  }
   var sum = 0;
   for (var i = 0; i < blockTimes.length-1; i++) {
     var delta = blockTimes[i].timestamp - blockTimes[i+1].timestamp;
@@ -87,10 +90,25 @@ function parseAverageBlocktime() {
   return sum/blockTimes.length;
 }
 
+function handleDeleteClicked(e) {
+  var $btn = $(this);
+  var $container = $btn.closest('.alarm');
+  var doc = $container.data('alarm');
+  db.remove(doc).then(function(doc) {
+    showExistingAlarms();
+  }).catch(function(err) {
+    alert(err);
+  });
+}
+
 function showExistingAlarms() {
   if (isUpdatingDisplay) return;
   isUpdatingDisplay = true;
   var $container = $('#existing-alarms').empty();
+  var numOpts = {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  };
   db.allDocs({
     include_docs: true
   }).then(function(rs) {
@@ -98,26 +116,48 @@ function showExistingAlarms() {
       var doc = data.doc;
       var delta = doc.block - currentBlockHeight;
 
-      var classes = [];
+      var classes = ['alarm'];
       if (delta > 0) {
         classes.push('pending');
       } else {
         classes.push('past');
       }
       var $row = $('<div id="' + doc._id  + '" class="' + classes.join(' ') + '"></div>');
+      $row.data('alarm', doc);
       $row.append('<div class="block">' + doc.block + '</div>');
 
+      var blockTime = parseAverageBlocktime();
       if (delta > 0) {
         // Alarm hasn't gone off yet.
-        $row.append('<div class="delta">' + delta + ' blocks to go.</div>');
+        $row.append('<div class="delta">' + delta.toLocaleString() + ' blocks to go.</div>');
+        var secs = delta * blockTime;
+        if (secs > 120) {
+          var min = secs/60;
+          if (min > 120) {
+            var hrs = min/60;
+            if (hrs > 36) {
+              var days = hrs/24;
+              if (days > 500) {
+                var yrs = days/365;
+                $row.append('<div class="time">(About ' + yrs.toLocaleString(false, numOpts) + ' years)</div>');
+              } else {
+                $row.append('<div class="time">(About ' + days.toLocaleString(false, numOpts) + ' days)</div>');
+              }
+            } else {
+              $row.append('<div class="time">(About ' + hrs.toLocaleString(false, numOpts) + ' hours)</div>');
+            }
+          } else {
+            $row.append('<div class="time">(About ' + min.toLocaleString(false, numOpts) + ' minutes)</div>');
+          }
+        } else {
+          $row.append('<div class="time">(About ' + secs.toLocaleString(false, numOpts) + ' seconds)</div>');
+        }
       } else {
         // Alarm already happened
         $row.append('<div class="delta">' + delta*-1 + ' blocks ago.</div>');
       }
       var $delete = $('<button class="delete">X</button>');
-      $delete.on('click', function(e) {
-
-      });
+      $delete.on('click', handleDeleteClicked);
 
       $row.append($delete);
 
@@ -139,10 +179,10 @@ function startApp(web3) {
         blockTimes = rs;
         var avgTime = parseAverageBlocktime();
         $('#block-time').html(avgTime + ' seconds/block');
+        showExistingAlarms();
       });
       document.title = currentBlockHeight + ' - Ethereum Blockwatch';
       console.log(currentBlockHeight);
-      showExistingAlarms();
       setTimeout(doBlockCheck, 30*1000);
     }, function(err) {
       console.log(err);
@@ -161,7 +201,7 @@ function startApp(web3) {
     }
 
     db.put({
-      _id:'alarm-'+blockHeight,
+      _id: 'alarm-'+blockHeight,
       block: blockHeight
     }, function(err, rs) {
       if (err) {
@@ -177,6 +217,5 @@ function startApp(web3) {
 
     console.log(blockHeight);
   });
-  showExistingAlarms();
 
 }
