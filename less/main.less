@@ -19,8 +19,12 @@ body { text-align:center; }
 
 #existing-alarms {
   margin: 2em 0;
-  > div { display: flex; max-width: 30rem; margin:0 auto; padding:0.5em 0; }
-  .block { flex: 1; flex-basis: 5rem; padding:0 0.5em 0 0; text-align:right; }
-  .delta { flex: 1; flex-basis: 8rem; padding:0 0.5em 0 0; text-align:right; }
-  .time { flex: 1; flex-basis: 8rem; padding:0 0.5em 0 0; text-align:left; }
+  .alarm {
+    display: flex; max-width: 30rem; margin:0 auto; padding:0.5em 0;
+    &.past { background: #DDD; }
+    .block { flex: 1; flex-basis: 5rem; padding:0 0.5em 0 0; text-align:right; }
+    .delta { flex: 1; flex-basis: 8rem; padding:0 0.5em 0 0; text-align:right; }
+    .time { flex: 1; flex-basis: 8rem; padding:0 0.5em 0 0; text-align:left; }
+    .action-buttons { flex: 0; padding: 0 0.5em 0 0; }
+  }
 }

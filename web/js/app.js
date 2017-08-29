@@ -101,14 +101,41 @@ function handleDeleteClicked(e) {
   });
 }
 
-function showExistingAlarms() {
-  if (isUpdatingDisplay) return;
-  isUpdatingDisplay = true;
-  var $container = $('#existing-alarms').empty();
+function blocksToTime(blocks) {
+  var blockTime = parseAverageBlocktime();
+  var secs = blocks * blockTime;
+  if (secs < 0) secs = secs * -1;
   var numOpts = {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   };
+  if (secs > 120) {
+    var min = secs/60;
+    if (min > 120) {
+      var hrs = min/60;
+      if (hrs > 36) {
+        var days = hrs/24;
+        if (days > 500) {
+          var yrs = days/365;
+          return yrs.toLocaleString(false, numOpts) + ' years';
+        } else {
+          return days.toLocaleString(false, numOpts) + ' days';
+        }
+      } else {
+        return hrs.toLocaleString(false, numOpts) + ' hours';
+      }
+    } else {
+      return min.toLocaleString(false, numOpts) + ' minutes';
+    }
+  } else {
+    return secs.toLocaleString(false, numOpts) + ' seconds';
+  }
+}
+
+function showExistingAlarms() {
+  if (isUpdatingDisplay) return;
+  isUpdatingDisplay = true;
+  var $container = $('#existing-alarms').empty();
   db.allDocs({
     include_docs: true
   }).then(function(rs) {
@@ -130,36 +157,16 @@ function showExistingAlarms() {
       if (delta > 0) {
         // Alarm hasn't gone off yet.
         $row.append('<div class="delta">' + delta.toLocaleString() + ' blocks to go.</div>');
-        var secs = delta * blockTime;
-        if (secs > 120) {
-          var min = secs/60;
-          if (min > 120) {
-            var hrs = min/60;
-            if (hrs > 36) {
-              var days = hrs/24;
-              if (days > 500) {
-                var yrs = days/365;
-                $row.append('<div class="time">(About ' + yrs.toLocaleString(false, numOpts) + ' years)</div>');
-              } else {
-                $row.append('<div class="time">(About ' + days.toLocaleString(false, numOpts) + ' days)</div>');
-              }
-            } else {
-              $row.append('<div class="time">(About ' + hrs.toLocaleString(false, numOpts) + ' hours)</div>');
-            }
-          } else {
-            $row.append('<div class="time">(About ' + min.toLocaleString(false, numOpts) + ' minutes)</div>');
-          }
-        } else {
-          $row.append('<div class="time">(About ' + secs.toLocaleString(false, numOpts) + ' seconds)</div>');
-        }
+        $row.append('<div class="time">(About ' + blocksToTime(delta) + ')</div>');
       } else {
         // Alarm already happened
         $row.append('<div class="delta">' + delta*-1 + ' blocks ago.</div>');
+        $row.append('<div class="time">(About ' + blocksToTime(delta) + ' ago)</div>');
       }
       var $delete = $('<button class="delete">X</button>');
       $delete.on('click', handleDeleteClicked);
 
-      $row.append($delete);
+      $row.append($delete.wrap('<div class="action-buttons" />').parent());
 
       $container.append($row);
     });
