@@ -1,7 +1,7 @@
 # Ethereum Block Alarm
 The Ethereum blockchain adds blocks at a rate of about 10 seconds/block. Some contracts need things to happen at a certain block height, and this tool can help track when that should be happening.
 
-This application is deployed on IPFS under the hash [`QmW3NFie6mFcuTmDxhxf5CF4GT7qk2D9kBsaexUhyRWzpz`](https://ipfs.io/ipfs/QmW3NFie6mFcuTmDxhxf5CF4GT7qk2D9kBsaexUhyRWzpz/index.html)
+This application is deployed on IPFS under the hash [`QmejJYQe6auucdK6RqCe71tFGmi7c3jSLrvcJs5rNucz5W`](https://ipfs.io/ipfs/QmejJYQe6auucdK6RqCe71tFGmi7c3jSLrvcJs5rNucz5W/index.html)
 
 # Developing
 Install the required Node modules by running
