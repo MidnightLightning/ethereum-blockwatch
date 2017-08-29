@@ -1,6 +1,7 @@
 @import "_base";
 
 body { text-align:center; font-family: 'Ubuntu Mono', monospace; }
+input { font-family: 'Ubuntu Mono', monospace; }
 
 #block-number {
   font-size: 4rem;
@@ -18,9 +19,10 @@ body { text-align:center; font-family: 'Ubuntu Mono', monospace; }
 #existing-alarms {
   margin: 2em 0;
   .alarm {
-    display: flex; max-width: 40rem; margin:0 auto; padding:0.5em 0;
+    display: flex; max-width: 60rem; margin:0 auto; padding:0.5em 0;
     &.past { background: #DDD; color: #444; }
     &.pending { background: #CFC; color:#030; }
+    .label { flex: 1; flex-basis: 8rem; padding:0 0.5em 0 0; text-align:right; }
     .block { flex: 1; flex-basis: 2rem; padding:0 0.5em 0 0; text-align:right; }
     .delta { flex: 1; flex-basis: 8rem; padding:0 0.5em 0 0; text-align:right; }
     .time { flex: 1; flex-basis: 8rem; padding:0 0.5em 0 0; text-align:left; }

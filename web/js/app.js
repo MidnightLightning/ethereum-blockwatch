@@ -153,6 +153,8 @@ function showExistingAlarms() {
       }
       var $row = $('<div id="' + doc._id  + '" class="' + classes.join(' ') + '"></div>');
       $row.data('alarm', doc);
+
+      $row.append('<div class="label">' + doc.label + '</div>');
       $row.append('<div class="block">' + doc.block + '</div>');
 
       var blockTime = parseAverageBlocktime();
@@ -230,11 +232,14 @@ function startApp(web3) {
     }
     if (blockHeight < currentBlockHeight) {
       alert('Alarm occurs in the past!');
+      return;
     }
+    var alarmLabel = $('#new-alarm-label').val();
 
     db.put({
       _id: 'alarm-'+blockHeight,
-      block: blockHeight
+      block: blockHeight,
+      label: alarmLabel
     }, function(err, rs) {
       if (err) {
         if (err.status == 409) {
