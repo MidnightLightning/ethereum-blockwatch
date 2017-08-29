@@ -144,7 +144,9 @@ function showExistingAlarms() {
       var delta = doc.block - currentBlockHeight;
 
       var classes = ['alarm'];
-      if (delta > 0) {
+      if (delta > 60) {
+        classes.push('future');
+      } else if (delta > -6) {
         classes.push('pending');
       } else {
         classes.push('past');
@@ -163,7 +165,7 @@ function showExistingAlarms() {
         $row.append('<div class="delta">' + delta*-1 + ' blocks ago.</div>');
         $row.append('<div class="time">(About ' + blocksToTime(delta) + ' ago)</div>');
       }
-      var $delete = $('<button class="delete">X</button>');
+      var $delete = $('<img class="btn btn-delete" src="./icon_delete.svg" />');
       $delete.on('click', handleDeleteClicked);
 
       $row.append($delete.wrap('<div class="action-buttons" />').parent());
@@ -179,17 +181,40 @@ function startApp(web3) {
 
   // Start timer for checking block heights
   function doBlockCheck() {
+    let lastHeight = currentBlockHeight;
     getLatestBlock(web3).then(function(rs) {
       currentBlockHeight = web3.toBigNumber(rs).toNumber();
-      $('#block-number').html(currentBlockHeight);
       getLastBlocks(web3, currentBlockHeight, 10).then(function(rs) {
         blockTimes = rs;
         var avgTime = parseAverageBlocktime();
         $('#block-time').html(avgTime + ' seconds/block');
         showExistingAlarms();
       });
+
+      // Update display
+      $('#block-number').html(currentBlockHeight);
       document.title = currentBlockHeight + ' - Ethereum Blockwatch';
       console.log(currentBlockHeight);
+
+      // Check if any alarms should now fire
+      if (lastHeight > 0) {
+        db.allDocs({
+          include_docs: true
+        }).then(function (rs) {
+          var shouldAlarm = false;
+          rs.rows.map(function (data) {
+            var doc = data.doc;
+            if (doc.block > lastHeight && doc.block <= currentBlockHeight) {
+              shouldAlarm = true;
+            }
+          });
+          if (shouldAlarm) {
+            alert('Block height reached!');
+          }
+        });
+      }
+
+      // Set timeout to check again
       setTimeout(doBlockCheck, 30*1000);
     }, function(err) {
       console.log(err);

@@ -1,15 +1,5 @@
-# Node Based web project
-While making small modules in Node is easy, and adheres to the Unix-y philosophy of "do one thing and do it well," it can lead to some [unfortunate situations](http://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/) if those modules get too small.
-
-So this is my source repo for getting a simple NodeJS web application running, with my favorite side-tools configured.
-
-To clone this archive as a starting point, use `git archive master | tar -x -C /somewhere/else` to clone it without any of the existing Git history ([ref](http://stackoverflow.com/a/163769/144756)).
-
-## Included packages
-- [Gulp](https://www.npmjs.com/package/mocha): For build tasks
-- ESLint: For keeping JavaScript clean
-- LESS: For complex CSS manipulation
-- [Mocha](https://www.npmjs.com/package/mocha): For unit-testing
+# Ethereum Block Alarm
+The Ethereum blockchain adds blocks at a rate of about 10 seconds/block. Some contracts need things to happen at a certain block height, and this tool can help track when that should be happening.
 
 # Developing
 Install the required Node modules by running
