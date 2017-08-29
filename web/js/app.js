@@ -167,7 +167,7 @@ function showExistingAlarms() {
         $row.append('<div class="delta">' + delta*-1 + ' blocks ago.</div>');
         $row.append('<div class="time">(About ' + blocksToTime(delta) + ' ago)</div>');
       }
-      var $delete = $('<img class="btn btn-delete" src="./icon_delete.svg" />');
+      var $delete = $('<img title="Delete" class="btn btn-delete" src="./icon_delete.svg" />');
       $delete.on('click', handleDeleteClicked);
 
       $row.append($delete.wrap('<div class="action-buttons" />').parent());

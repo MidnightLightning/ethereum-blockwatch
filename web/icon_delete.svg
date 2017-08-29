@@ -1,10 +1,10 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 192 192" style="enable-background:new 0 0 192 192;" xml:space="preserve">
 <style type="text/css">
-	.line { stroke:#000; fill: none; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; }
+	.line { stroke:#FFF; fill: none; stroke-linecap:round; stroke-linejoin:round; stroke-width:4; }
 	.line-thick { stroke-width:8; }
 	.line-anglejoin { stroke-linejoin:miter; }
-	.line-frame { stroke-width:8; fill:#FFF; fill-opacity:0.15; }
+	.line-frame { stroke-width:8; fill:#FF3; fill-opacity:0.15; }
 </style>
 <g id="icon">
 	<rect class="line line-frame" x="4" y="4" width="184" height="184" />
