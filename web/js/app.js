@@ -157,14 +157,16 @@ function showExistingAlarms() {
       $row.append('<div class="label">' + doc.label + '</div>');
       $row.append('<div class="block">' + doc.block + '</div>');
 
-      var blockTime = parseAverageBlocktime();
+      var b;
       if (delta > 0) {
         // Alarm hasn't gone off yet.
-        $row.append('<div class="delta">' + delta.toLocaleString() + ' blocks to go.</div>');
+        b = (delta == 1)? 'block' : 'blocks';
+        $row.append('<div class="delta">' + delta.toLocaleString() + ' ' + b + ' to go.</div>');
         $row.append('<div class="time">(About ' + blocksToTime(delta) + ')</div>');
       } else {
         // Alarm already happened
-        $row.append('<div class="delta">' + delta*-1 + ' blocks ago.</div>');
+        b = (delta == -1)? 'block' : 'blocks';
+        $row.append('<div class="delta">' + delta*-1 + ' ' + b + ' ago.</div>');
         $row.append('<div class="time">(About ' + blocksToTime(delta) + ' ago)</div>');
       }
       var $delete = $('<img title="Delete" class="btn btn-delete" src="./icon_delete.svg" />');
