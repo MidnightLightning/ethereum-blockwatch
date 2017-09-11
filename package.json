@@ -1,6 +1,6 @@
 {
-  "name": "midnight-web",
-  "description": "A base project for starting Node web projects from",
+  "name": "ethereum-blockwatch",
+  "description": "A tool for tracking the current height of the Ethereum blockchain",
   "version": "1.0.0",
   "author": "Brooks Boyd <bro@oks.me>",
   "main": "app.js",
