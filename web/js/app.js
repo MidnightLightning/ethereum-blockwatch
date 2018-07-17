@@ -11,7 +11,7 @@ window.addEventListener('load', function() {
     w = new Web3(window.web3.currentProvider);
   } else {
     w = new Web3();
-    w.setProvider(new web3.providers.HttpProvider('https://mainnet.infura.io/qF5mTfKyGqOX2uo9SA87 '));
+    w.setProvider(new Web3.providers.HttpProvider('https://mainnet.infura.io/qF5mTfKyGqOX2uo9SA87 '));
   }
 
   startApp(w);
