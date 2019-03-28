@@ -3,6 +3,8 @@ The Ethereum blockchain adds blocks at a rate of about 10 seconds/block. Some co
 
 This application is deployed on IPFS under the hash [`QmdikpwcyeBuGaVzWzSzPuqvBfTGD8jPAVydcCjYHsBUxo`](https://gateway.ipfs.io/ipfs/QmdikpwcyeBuGaVzWzSzPuqvBfTGD8jPAVydcCjYHsBUxo/index.html)
 
+<table border="0"><tr>  <td><a href="https://gittron.me/bots/0x635447ecd68a8a7125ad09c0df70a2cb"><img src="https://s3.amazonaws.com/od-flat-svg/0x635447ecd68a8a7125ad09c0df70a2cb.png" alt="gittron" width="50"/></a></td><td><a href="https://gittron.me/bots/0x635447ecd68a8a7125ad09c0df70a2cb">SUPPORT US WITH GITTRON</a></td></tr></table>
+
 # Developing
 Install the required Node modules by running
 
